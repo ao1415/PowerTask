@@ -41,10 +41,12 @@
             VerticalAlignment="Stretch">
             <WrapPanel>
                 <Button
+                    x:Name="WinCron"
                     Width="64"
                     Height="64"
                     Margin="10,10,10,10"
-                    Content="Button" />
+                    Content="WinCron"
+                    Cursor="Hand" Click="WinCron_Click" />
             </WrapPanel>
         </materialDesign:Card>
     </Grid>
