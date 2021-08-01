@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace WinCron
+namespace PowerTask.Config
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -23,6 +23,11 @@ namespace WinCron
         public MainWindow()
         {
             InitializeComponent();
+        }
+
+        private void WinCron_Click(object sender, RoutedEventArgs e)
+        {
+            _ = new Config.WinCron().ShowDialog();
         }
     }
 }

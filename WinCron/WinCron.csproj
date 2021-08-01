@@ -1,24 +1,8 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <OutputType>Library</OutputType>
     <TargetFramework>net5.0-windows</TargetFramework>
     <UseWPF>true</UseWPF>
-    <ApplicationIcon />
-    <StartupObject />
   </PropertyGroup>
-
-  <ItemGroup>
-    <Compile Remove="App.xaml.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Page Remove="App.xaml" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="MaterialDesignThemes" Version="4.1.0" />
-    <PackageReference Include="ShowMeTheXAML" Version="2.0.0" />
-  </ItemGroup>
 
 </Project>

@@ -10,24 +10,18 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace PowerTask
+namespace PowerTask.Config
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Window1.xaml の相互作用ロジック
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class WinCron : Window
     {
-        public MainWindow()
+        public WinCron()
         {
             InitializeComponent();
-        }
-
-        private void WinCron_Click(object sender, RoutedEventArgs e)
-        {
-            //new WinCron.MainWindow().ShowDialog();
         }
     }
 }

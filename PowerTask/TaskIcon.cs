@@ -18,7 +18,7 @@ namespace PowerTask
         public Window ParentWindow { set; get; }
 
         /// <summary>コンフィグウィンドウ</summary>
-        private MainWindow MainWindow { get; set; }
+        private Config.MainWindow MainWindow { get; set; }
 
         public TaskIcon()
         {
@@ -35,7 +35,7 @@ namespace PowerTask
             if (MainWindow == null || !MainWindow.IsVisible)
             {
                 // コンフィグウィンドウが表示されていない場合に表示する
-                MainWindow = new MainWindow();
+                MainWindow = new Config.MainWindow();
                 MainWindow.Show();
             }
             else
