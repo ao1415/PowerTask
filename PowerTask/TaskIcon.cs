@@ -6,26 +6,27 @@ namespace PowerTask
     {
         private readonly System.Timers.Timer Timer;
 
+        /// <summary>タイマーインターバル取得</summary>
+        /// <returns></returns>
+        private double GetInterval() => 1001 - DateTime.Now.Millisecond;
+
         public TaskIcon()
         {
             InitializeComponent();
 
             Timer = new System.Timers.Timer
             {
-                Interval = TimeSpan.FromSeconds(1).TotalMilliseconds,
+                Interval = GetInterval(),
                 AutoReset = true
             };
-            Timer.Elapsed += (sender, e) => { ClockEventInvoker.Instance.RaiseEvent(); };
+            Timer.Elapsed += (sender, e) =>
+            {
+                ClockEventInvoker.Instance.RaiseEvent();
+                Timer.Interval = GetInterval();
+            };
             Timer.Start();
 
             ClockEventInvoker.Instance.AddEvent("log", (sender, e) =>
-            {
-                DateTime date = DateTime.Now;
-                Logger.Verbose("{0},ClockEvent:Start", date);
-                Task.Delay(TimeSpan.FromSeconds(5)).Wait();
-                Logger.Verbose("{0},ClockEvent:End", date);
-            });
-            ClockEventInvoker.Instance.AddEvent("log2", (sender, e) =>
             {
                 Logger.Verbose("ClockEvent");
             });
