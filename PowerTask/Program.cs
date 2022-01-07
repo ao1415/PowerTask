@@ -1,3 +1,5 @@
+using BasicLibrary;
+
 namespace PowerTask
 {
     internal static class Program
@@ -9,7 +11,12 @@ namespace PowerTask
         static void Main()
         {
             ApplicationConfiguration.Initialize();
+
+            Logger.Initialize();
+
+            Logger.Information("アプリ起動");
             Application.Run(new Form1());
+            Logger.Information("アプリ終了");
         }
     }
 }
