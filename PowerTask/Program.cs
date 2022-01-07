@@ -15,7 +15,8 @@ namespace PowerTask
             Logger.Initialize();
 
             Logger.Information("アプリ起動");
-            Application.Run(new Form1());
+            _ = new TaskIcon();
+            Application.Run();
             Logger.Information("アプリ終了");
         }
     }

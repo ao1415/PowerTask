@@ -7,13 +7,19 @@ namespace BasicLibrary
 {
     public static class Logger
     {
+        /// <summary>ログフォルダ</summary>
+        public static string FolderPath { get; } = @".\logs";
+
+        /// <summary>ログファイル</summary>
+        public static string FileName { get; } = @"PowerTask.log";
+
         /// <summary>
         /// 初期化
         /// </summary>
         public static void Initialize()
         {
             string template = "{Timestamp:yyyy/MM/dd HH:mm:ss.fff} [{Level:u4}][{ThreadId:00}] {Message:j}{NewLine}{Exception}";
-            string logFilePathHead = @"logs\log";
+            string logFilePath = Path.Combine(FolderPath, FileName);
             long fileSizeLimitBytes = 1024 * 1024 * 10; // 10MB
 
             Log.Logger = new LoggerConfiguration()
@@ -21,7 +27,7 @@ namespace BasicLibrary
                             .Enrich.WithExceptionDetails()
                             .MinimumLevel.Verbose()
                             .WriteTo.Debug(outputTemplate: template)
-                            .WriteTo.File($"{logFilePathHead}.log", LogEventLevel.Verbose, outputTemplate: template, rollOnFileSizeLimit: true, fileSizeLimitBytes: fileSizeLimitBytes, retainedFileCountLimit: null)
+                            .WriteTo.File(logFilePath, outputTemplate: template, rollOnFileSizeLimit: true, fileSizeLimitBytes: fileSizeLimitBytes, retainedFileCountLimit: null)
                             .CreateLogger();
         }
 
