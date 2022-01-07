@@ -59,43 +59,43 @@
             this.toolStripMenuItem2,
             this.ExitToolStripMenuItem});
             this.ContextMenu.Name = "contextMenuStrip1";
-            this.ContextMenu.Size = new System.Drawing.Size(181, 126);
+            this.ContextMenu.Size = new System.Drawing.Size(137, 104);
             // 
             // LogOpenToolStripMenuItem
             // 
             this.LogOpenToolStripMenuItem.Name = "LogOpenToolStripMenuItem";
-            this.LogOpenToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.LogOpenToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
             this.LogOpenToolStripMenuItem.Text = "ログフォルダ...";
             this.LogOpenToolStripMenuItem.Click += new System.EventHandler(this.LogOpenToolStripMenuItem_Click);
             // 
             // LogShowToolStripMenuItem
             // 
             this.LogShowToolStripMenuItem.Name = "LogShowToolStripMenuItem";
-            this.LogShowToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.LogShowToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
             this.LogShowToolStripMenuItem.Text = "ログ表示...";
             this.LogShowToolStripMenuItem.Click += new System.EventHandler(this.LogShowToolStripMenuItem_Click);
             // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(177, 6);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(133, 6);
             // 
             // ConfigToolStripMenuItem
             // 
             this.ConfigToolStripMenuItem.Name = "ConfigToolStripMenuItem";
-            this.ConfigToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.ConfigToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
             this.ConfigToolStripMenuItem.Text = "設定...";
             this.ConfigToolStripMenuItem.Click += new System.EventHandler(this.ConfigToolStripMenuItem_Click);
             // 
             // toolStripMenuItem2
             // 
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(177, 6);
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(133, 6);
             // 
             // ExitToolStripMenuItem
             // 
             this.ExitToolStripMenuItem.Name = "ExitToolStripMenuItem";
-            this.ExitToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.ExitToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
             this.ExitToolStripMenuItem.Text = "終了...";
             this.ExitToolStripMenuItem.Click += new System.EventHandler(this.ExitToolStripMenuItem_Click);
             // 
