@@ -82,6 +82,9 @@ namespace WinCron
             }
         }
 
+        /// <summary>
+        /// 設定ファイル読み込み
+        /// </summary>
         private void ReadConfig()
         {
             Logger.Information("[WinCron]設定ファイル読み込み開始");
