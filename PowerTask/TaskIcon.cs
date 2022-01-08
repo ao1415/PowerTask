@@ -8,7 +8,7 @@ namespace PowerTask
 
         /// <summary>タイマーインターバル取得</summary>
         /// <returns></returns>
-        private double GetInterval() => 1001 - DateTime.Now.Millisecond;
+        private static double GetInterval() => 1001 - DateTime.Now.Millisecond;
 
         public TaskIcon()
         {

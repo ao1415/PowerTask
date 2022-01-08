@@ -8,7 +8,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PowerTask", "PowerTask\Powe
 		{236E7D92-D5F2-414D-AA7C-EFABDDDE408E} = {236E7D92-D5F2-414D-AA7C-EFABDDDE408E}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BasicLibrary", "BasicLibrary\BasicLibrary.csproj", "{236E7D92-D5F2-414D-AA7C-EFABDDDE408E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BasicLibrary", "BasicLibrary\BasicLibrary.csproj", "{236E7D92-D5F2-414D-AA7C-EFABDDDE408E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WinCron", "WinCron\WinCron.csproj", "{738F6F59-2F7A-4C34-BF7D-26AF91790FE8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -24,6 +26,10 @@ Global
 		{236E7D92-D5F2-414D-AA7C-EFABDDDE408E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{236E7D92-D5F2-414D-AA7C-EFABDDDE408E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{236E7D92-D5F2-414D-AA7C-EFABDDDE408E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{738F6F59-2F7A-4C34-BF7D-26AF91790FE8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{738F6F59-2F7A-4C34-BF7D-26AF91790FE8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{738F6F59-2F7A-4C34-BF7D-26AF91790FE8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{738F6F59-2F7A-4C34-BF7D-26AF91790FE8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

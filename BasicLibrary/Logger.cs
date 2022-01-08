@@ -18,14 +18,15 @@ namespace BasicLibrary
         /// </summary>
         public static void Initialize()
         {
-            string template = "{Timestamp:yyyy/MM/dd HH:mm:ss.fff} [{Level:u4}][{ThreadId:00}] {Message:j}{NewLine}{Exception}";
+            string template = "{Timestamp:yyyy/MM/dd HH:mm:ss.fff} [{Level:u4}][{AssemblyName}][{ThreadId:00}] {Message:j}{NewLine}{Exception}";
             string logFilePath = Path.Combine(FolderPath, FileName);
             long fileSizeLimitBytes = 1024 * 1024 * 10; // 10MB
 
             Log.Logger = new LoggerConfiguration()
-                            .Enrich.WithThreadId()
-                            .Enrich.WithExceptionDetails()
                             .MinimumLevel.Verbose()
+                            .Enrich.WithThreadId()
+                            .Enrich.WithAssemblyName()
+                            .Enrich.WithExceptionDetails()
                             .WriteTo.Debug(outputTemplate: template)
                             .WriteTo.File(logFilePath, outputTemplate: template, rollOnFileSizeLimit: true, fileSizeLimitBytes: fileSizeLimitBytes, retainedFileCountLimit: null)
                             .CreateLogger();
