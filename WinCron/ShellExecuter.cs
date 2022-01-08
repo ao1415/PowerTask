@@ -25,31 +25,40 @@ namespace WinCron
                 ps.Commands = pscmd;
                 ps.Runspace = rs;
 
-                Logger.Debug($"コマンド：{pscmd.Commands}");
+                Logger.Verbose($"[WinCron]コマンド：{string.Join(",", pscmd.Commands)}");
 
                 try
                 {
                     var results = ps.Invoke();
 
+                    foreach (var stream in ps.Streams.Information)
+                    {
+                        Logger.Debug($"[WinCron]実行情報：{stream}");
+                    }
+                    foreach (var stream in ps.Streams.Error)
+                    {
+                        Logger.Warning($"[WinCron]実行エラー：{stream}");
+                    }
+
                     if (results.Count > 0)
                     {
-                        Logger.Information("実行スクリプト：" + file);
+                        Logger.Information("[WinCron]実行スクリプト：" + file);
                         foreach (var res in results)
                         {
-                            Logger.Information("実行結果：" + res);
+                            Logger.Information("[WinCron]実行結果：" + res);
                         }
                     }
                 }
                 catch (PSSecurityException)
                 {
-                    Logger.Error("スクリプト実行を許可してください");
-                    Logger.Error("Set-ExecutionPolicy RemoteSigned -Scope CurrentUser");
+                    Logger.Error("[WinCron]スクリプト実行を許可してください");
+                    Logger.Error("[WinCron]Set-ExecutionPolicy RemoteSigned -Scope CurrentUser");
                     return false;
                 }
             }
             catch (Exception e)
             {
-                Logger.Error("PowerShellの実行に失敗しました", e);
+                Logger.Error("[WinCron]PowerShellの実行に失敗しました", e);
                 return false;
             }
 

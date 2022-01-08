@@ -12,6 +12,11 @@
         /// <summary>イベント重複ガード</summary>
         private readonly Dictionary<string, bool> RaiseLock = new();
 
+        private ClockEventInvoker()
+        {
+
+        }
+
         /// <summary>
         /// 定期イベント追加
         /// </summary>

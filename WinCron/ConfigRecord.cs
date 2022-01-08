@@ -13,6 +13,7 @@ namespace WinCron
         public string Path { get; init; }
         public string Param { get; init; }
 
+        private HashSet<int> Seconds { get; init; }
         private HashSet<int> Minutes { get; init; }
         private HashSet<int> Hour { get; init; }
         private HashSet<int> Day { get; init; }
@@ -31,12 +32,13 @@ namespace WinCron
             string param = record.Param ?? string.Empty;
 
             string[] timingSplit = record.Timing?.Split(" ") ?? Array.Empty<string>();
-            if (timingSplit.Length != 5)
+            if (timingSplit.Length != 6)
             {
-                Logger.Warning($"Timingの設定値に異常があります：[{name}]{record.Timing}");
+                Logger.Warning($"[WinCron]Timingの設定値に異常があります：[{name}]{record.Timing}");
                 return null;
             }
 
+            HashSet<int> seconds;
             HashSet<int> minutes;
             HashSet<int> hour;
             HashSet<int> day;
@@ -44,29 +46,30 @@ namespace WinCron
             HashSet<int> week;
             try
             {
-                minutes = GetTarget(timingSplit[0], 0, 59);
-                hour = GetTarget(timingSplit[1], 0, 23);
-                day = GetTarget(timingSplit[2], 1, 31);
-                month = GetTarget(timingSplit[3], 1, 12);
-                week = GetTarget(timingSplit[4], 0, 7);
+                seconds = GetTarget(timingSplit[0], 0, 59);
+                minutes = GetTarget(timingSplit[1], 0, 59);
+                hour = GetTarget(timingSplit[2], 0, 23);
+                day = GetTarget(timingSplit[3], 1, 31);
+                month = GetTarget(timingSplit[4], 1, 12);
+                week = GetTarget(timingSplit[5], 0, 7);
 
                 if (week.Contains(7))
                     week.Add(0);
             }
             catch (Exception)
             {
-                Logger.Warning($"Timingの設定値に異常があります：[{name}]{record.Timing}");
+                Logger.Warning($"[WinCron]Timingの設定値に異常があります：[{name}]{record.Timing}");
                 return null;
             }
 
             if (string.IsNullOrEmpty(path))
             {
-                Logger.Warning($"Pathの設定値に異常があります：{name}");
+                Logger.Warning($"[WinCron]Pathの設定値に異常があります：{name}");
                 return null;
             }
             else if (!File.Exists(path))
             {
-                Logger.Warning($"Pathに指定されたファイルがありません：{name}, {path}");
+                Logger.Warning($"[WinCron]Pathに指定されたファイルがありません：{name}, {path}");
                 return null;
             }
 
@@ -74,6 +77,7 @@ namespace WinCron
                 name: name,
                 path: path,
                 param: param,
+                seconds: seconds,
                 minutes: minutes,
                 hour: hour,
                 day: day,
@@ -109,7 +113,7 @@ namespace WinCron
 
                 if (section.Length == 1)
                 {
-                    //Log.Logger.Debug($"Parse:{section[0]}");
+                    Logger.Verbose($"[WinCron]Parse:{section[0]}");
                     target.Add(int.Parse(section[0]));
                 }
                 else
@@ -117,11 +121,11 @@ namespace WinCron
                     int d = 1;
                     if (item.Length == 2)
                     {
-                        //Log.Logger.Debug($"Parse:{item[1]}");
+                        Logger.Verbose($"[WinCron]Parse:{item[1]}");
                         d = int.Parse(item[1]);
                     }
 
-                    //Log.Logger.Debug($"Parse:{section[0]}:{section[1]}");
+                    Logger.Verbose($"[WinCron]Parse:{section[0]}:{section[1]}");
                     int begin = int.Parse(section[0]);
                     int end = int.Parse(section[1]);
 
@@ -132,7 +136,7 @@ namespace WinCron
                 }
             }
 
-            //Log.Logger.Debug(string.Join(",", target));
+            Logger.Verbose($"[WinCron]{string.Join(",", target)}");
 
             return target;
         }
@@ -143,16 +147,18 @@ namespace WinCron
         /// <param name="name"></param>
         /// <param name="path"></param>
         /// <param name="param"></param>
+        /// <param name="seconds"></param>
         /// <param name="minutes"></param>
         /// <param name="hour"></param>
         /// <param name="day"></param>
         /// <param name="month"></param>
         /// <param name="week"></param>
-        private ConfigParse(string name, string path, string param, HashSet<int> minutes, HashSet<int> hour, HashSet<int> day, HashSet<int> month, HashSet<int> week)
+        private ConfigParse(string name, string path, string param, HashSet<int> seconds, HashSet<int> minutes, HashSet<int> hour, HashSet<int> day, HashSet<int> month, HashSet<int> week)
         {
             Name = name;
             Path = path;
             Param = param;
+            Seconds = seconds;
             Minutes = minutes;
             Hour = hour;
             Day = day;
@@ -167,6 +173,9 @@ namespace WinCron
         /// <returns></returns>
         public bool IsMatch(DateTime now)
         {
+            if (!Seconds.Contains(now.Second))
+                return false;
+
             if (!Minutes.Contains(now.Minute))
                 return false;
 

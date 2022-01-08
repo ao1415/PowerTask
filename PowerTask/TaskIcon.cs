@@ -24,12 +24,8 @@ namespace PowerTask
                 ClockEventInvoker.Instance.RaiseEvent();
                 Timer.Interval = GetInterval();
             };
-            Timer.Start();
 
-            ClockEventInvoker.Instance.AddEvent("log", (sender, e) =>
-            {
-                Logger.Verbose("ClockEvent");
-            });
+            Timer.Start();
         }
 
         /// <summary>

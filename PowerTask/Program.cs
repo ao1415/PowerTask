@@ -1,4 +1,5 @@
 using BasicLibrary;
+using System.Configuration;
 
 namespace PowerTask
 {
@@ -12,12 +13,28 @@ namespace PowerTask
         {
             ApplicationConfiguration.Initialize();
 
+            Config.Initialize(ConfigurationManager.AppSettings);
             Logger.Initialize();
 
             Logger.Information("アプリ起動");
+
+            Initialize();
+
             _ = new TaskIcon();
             Application.Run();
             Logger.Information("アプリ終了");
+        }
+
+        /// <summary>
+        /// 初期化
+        /// </summary>
+        private static void Initialize()
+        {
+            Logger.Information("アプリ初期化開始");
+
+            new WinCron.Cron().Initialize();
+
+            Logger.Information("アプリ初期化終了");
         }
     }
 }
