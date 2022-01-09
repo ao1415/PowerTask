@@ -26,6 +26,16 @@ namespace PowerTask
             };
 
             Timer.Start();
+
+
+            GlobalKeyEventInvoker.Instance.KeyDown += (s, e) =>
+           {
+               Logger.Debug($"Down Alt:{e.Alt},Control:{e.Control},Shift:{e.Shift},KeyCode:{e.KeyCode}");
+           };
+            GlobalKeyEventInvoker.Instance.KeyUp += (s, e) =>
+            {
+                Logger.Debug($"Up Alt:{e.Alt},Control:{e.Control},Shift:{e.Shift},KeyCode:{e.KeyCode}");
+            };
         }
 
         /// <summary>
