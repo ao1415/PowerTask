@@ -1,0 +1,11 @@
+namespace WinRTLibrary
+{
+    [default_interface]
+    runtimeclass Class
+    {
+        Class();
+        Class(Int32 m_value);
+        Int32 MyProperty;
+        Int32 MyMethod();
+    }
+}

@@ -18,23 +18,13 @@ namespace PowerTask
 
             Logger.Information("アプリ起動");
 
-            Initialize();
+            if (Initializer.Initialize())
+            {
+                _ = new TaskIcon();
+                Application.Run();
+            }
 
-            _ = new TaskIcon();
-            Application.Run();
             Logger.Information("アプリ終了");
-        }
-
-        /// <summary>
-        /// 初期化
-        /// </summary>
-        private static void Initialize()
-        {
-            Logger.Information("アプリ初期化開始");
-
-            new WinCron.Cron().Initialize();
-
-            Logger.Information("アプリ初期化終了");
         }
     }
 }

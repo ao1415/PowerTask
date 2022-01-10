@@ -2,7 +2,7 @@
 
 namespace WinCron
 {
-    public class Cron
+    public class WinCron : IPowerTaskModule
     {
         private readonly FileSystemWatcher Watcher = new();
         private readonly List<ConfigParse> Configs = new();
@@ -10,14 +10,10 @@ namespace WinCron
         private string FolderPath { get; init; } = Config.AppSettings["ConfigFolder"];
         private string FileName { get; init; } = Config.AppSettings["WinCronJsonFile"];
 
-        public Cron()
-        {
-        }
-
         /// <summary>
         /// 初期化処理
         /// </summary>
-        public void Initialize()
+        void IPowerTaskModule.Initialize()
         {
             Logger.Information("[WinCron]初期化開始");
             if (!Directory.Exists(FolderPath))
@@ -38,7 +34,7 @@ namespace WinCron
 
             ReadConfig();
 
-            ClockEventInvoker.Instance.AddEvent("WinCron", Cron_Clock);
+            ClockEventInvoker.Instance.AddEvent("WinCron", WinCron_Clock);
 
             Logger.Information("[WinCron]初期化終了");
         }
@@ -59,7 +55,7 @@ namespace WinCron
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void Cron_Clock(object? sender, EventArgs e)
+        private void WinCron_Clock(object? sender, EventArgs e)
         {
             Logger.Verbose("[WinCron]");
 

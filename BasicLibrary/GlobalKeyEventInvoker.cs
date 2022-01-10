@@ -72,7 +72,7 @@ namespace BasicLibrary
             {
                 try
                 {
-                    Logger.Debug("キーフック");
+                    Logger.Verbose("キーフック");
                     Keys keys = (Keys)lParam.vkCode | Control.ModifierKeys;
                     if (wParam == (IntPtr)KeyboardMessage.WM_KEYDOWN || wParam == (IntPtr)KeyboardMessage.WM_SYSKEYDOWN)
                     {

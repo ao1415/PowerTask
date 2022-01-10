@@ -1,10 +1,28 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>net6.0-windows</TargetFramework>
-    <Nullable>enable</Nullable>
-    <UseWindowsForms>true</UseWindowsForms>
-    <ImplicitUsings>enable</ImplicitUsings>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>net6.0-windows10.0.19041.0</TargetFramework>
+		<Nullable>enable</Nullable>
+		<UseWindowsForms>true</UseWindowsForms>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<SupportedOSPlatformVersion>10.0.19041.0</SupportedOSPlatformVersion>
+		<Platforms>AnyCPU;x64</Platforms>
+		<ApplicationManifest>app.manifest</ApplicationManifest>
+		<CsWinRTIncludes>WinRTLibrary</CsWinRTIncludes>
+		<CsWinRTGeneratedFilesDir>$(OutDir)</CsWinRTGeneratedFilesDir>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<None Remove="app.manifest" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Microsoft.Windows.CsWinRT" Version="1.4.1" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\BasicLibrary\BasicLibrary.csproj" />
+		<ProjectReference Include="..\WinRTLibrary\WinRTLibrary.vcxproj" />
+	</ItemGroup>
 
 </Project>
