@@ -40,30 +40,5 @@ namespace WinCapt
             //}
         }
 
-        /// <summary>
-        /// 指定されたアイテムをキャプチャする
-        /// </summary>
-        /// <param name="item">キャプチャ対象</param>
-        /// <returns>キャプチャキャンバス</returns>
-        //private static async Task<CanvasBitmap> GetCapture(GraphicsCaptureItem item)
-        //{
-        //    var tcs = new TaskCompletionSource<CanvasBitmap>();
-
-        //    IDirect3DDevice canvasDevice = new CanvasDevice();
-
-        //    Direct3D11CaptureFramePool framePool = Direct3D11CaptureFramePool.CreateFreeThreaded(canvasDevice, DirectXPixelFormat.R16G16B16A16Float, 1, item.Size);
-        //    framePool.FrameArrived += (sender, args) =>
-        //    {
-        //        using var frame = framePool.TryGetNextFrame();
-        //        CanvasBitmap canvas = CanvasBitmap.CreateFromDirect3D11Surface((ICanvasResourceCreator)canvasDevice!, frame.Surface);
-        //        tcs.TrySetResult(canvas);
-        //    };
-
-        //    GraphicsCaptureSession session = framePool.CreateCaptureSession(item);
-        //    session.StartCapture();
-
-        //    return await tcs.Task;
-        //}
-
     }
 }

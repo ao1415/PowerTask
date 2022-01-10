@@ -8,6 +8,9 @@
     <Filter Include="Generated Files">
       <UniqueIdentifier>{926ab91d-31b4-48c3-b9a4-e681349f27f0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="lib">
+      <UniqueIdentifier>{bc3fdd66-3c68-4d2a-989f-a3a5f4d9a104}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
@@ -16,6 +19,21 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
+    <ClInclude Include="composition.interop.h">
+      <Filter>lib</Filter>
+    </ClInclude>
+    <ClInclude Include="d3dHelpers.h">
+      <Filter>lib</Filter>
+    </ClInclude>
+    <ClInclude Include="direct3d11.interop.h">
+      <Filter>lib</Filter>
+    </ClInclude>
+    <ClInclude Include="capture.interop.h">
+      <Filter>lib</Filter>
+    </ClInclude>
+    <ClInclude Include="stb_image_write.h">
+      <Filter>lib</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Midl Include="Class.idl" />
