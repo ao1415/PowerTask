@@ -1,9 +1,0 @@
-namespace WinRTLibrary
-{
-	[default_interface]
-	runtimeclass Class
-	{
-		Class();
-		void start([in] String path);
-	}
-}

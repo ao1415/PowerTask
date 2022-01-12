@@ -106,7 +106,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)'=='Debug'">
     <ClCompile>
-      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions);WINAPI_FAMILY=WINAPI_FAMILY_DESKTOP_APP</PreprocessorDefinitions>
       <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
@@ -116,7 +116,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)'=='Release'">
     <ClCompile>
-      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions);WINAPI_FAMILY=WINAPI_FAMILY_DESKTOP_APP</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -129,8 +129,8 @@
     <ClInclude Include="d3dHelpers.h" />
     <ClInclude Include="direct3d11.interop.h" />
     <ClInclude Include="pch.h" />
-    <ClInclude Include="Class.h">
-      <DependentUpon>Class.idl</DependentUpon>
+    <ClInclude Include="GraphicsCapture.h">
+      <DependentUpon>GraphicsCapture.idl</DependentUpon>
     </ClInclude>
     <ClInclude Include="stb_image_write.h" />
   </ItemGroup>
@@ -138,13 +138,13 @@
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="Class.cpp">
-      <DependentUpon>Class.idl</DependentUpon>
+    <ClCompile Include="GraphicsCapture.cpp">
+      <DependentUpon>GraphicsCapture.idl</DependentUpon>
     </ClCompile>
     <ClCompile Include="$(GeneratedFilesDir)module.g.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <Midl Include="Class.idl" />
+    <Midl Include="GraphicsCapture.idl" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

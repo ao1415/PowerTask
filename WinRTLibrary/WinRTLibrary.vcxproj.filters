@@ -36,7 +36,7 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Midl Include="Class.idl" />
+    <Midl Include="GraphicsCapture.idl" />
   </ItemGroup>
   <ItemGroup>
     <None Include="WinRTLibrary.def" />

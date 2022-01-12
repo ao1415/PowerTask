@@ -1,6 +1,12 @@
 ﻿
 
 using BasicLibrary;
+using BasicLibrary.WindowsAPI;
+using System.Text;
+
+using Windows.Graphics.Capture;
+using Windows.Graphics.DirectX.Direct3D11;
+using Windows.UI;
 
 namespace WinCapt
 {
@@ -12,32 +18,18 @@ namespace WinCapt
         /// <param name="winCapt"></param>
         public static async void SaveActiveWindow(WinCapt winCapt)
         {
-            WinRTLibrary.Class cls = new(100);
-            Logger.Debug(cls.MyProperty.ToString());
-            Logger.Debug(cls.MyMethod().ToString());
-            cls.MyProperty = 200;
-            Logger.Debug(cls.MyProperty.ToString());
-            Logger.Debug(cls.MyMethod().ToString());
-            //IntPtr handle = NativeMethods.GetForegroundWindow();
-            //if (handle != IntPtr.Zero)
-            //{
-            //    WindowId windowId = new() { Value = (ulong)handle.ToInt32() };
+            IntPtr hwnd = NativeMethods.GetForegroundWindow();
+            if (hwnd != IntPtr.Zero)
+            {
+                GraphicsCapturePicker picker=new();
+                GraphicsCaptureItem item = await picker.PickSingleItemAsync();
+                //WindowId id = new((ulong)hwnd);
+                //GraphicsCaptureItem item = GraphicsCaptureItem.TryCreateFromWindowId(id);
 
-            //    var factory = WindowsRuntimeMarshal.GetActivationFactory(typeof(GraphicsCaptureItem));
-            //    var interop = (IGraphicsCaptureItemInterop)factory;
-            //    var iid = typeof(GraphicsCaptureItem).GetInterface("IGraphicsCaptureItem").GUID;
-            //    var pointer = interop.CreateForWindow(hWnd, ref iid);
-            //    var capture = Marshal.GetObjectForIUnknown(pointer) as GraphicsCaptureItem;
-            //    Marshal.Release(pointer);
+                _ = NativeMethods.GetWindowTextA(hwnd, out StringBuilder title, 255);
+                string filePath = winCapt.GetSaveFilePath(title.ToString());
 
-            //    GraphicsCaptureItem item = GraphicsCaptureItem.TryCreateFromWindowId(windowId);
-
-            //    _ = NativeMethods.GetWindowTextA(handle, out StringBuilder title, 255);
-            //    string filePath = winCapt.GetSaveFilePath(title.ToString());
-
-            //    CanvasBitmap canvas = await GetCapture(item);
-            //    await canvas.SaveAsync(filePath);
-            //}
+            }
         }
 
     }
