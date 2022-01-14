@@ -18,6 +18,8 @@ namespace WinCapt
         private readonly string _folderPath;
         private readonly string _fileName;
 
+        private readonly GraphicsCapture _capture = new();
+
         public WinCapt()
         {
             _folderPath = GetFolderPath();
@@ -45,7 +47,7 @@ namespace WinCapt
         {
             if (e.KeyData == (Keys.Control | Keys.Alt | Keys.PrintScreen))
             {
-                GraphicsCapture.SaveActiveWindow(this);
+                _capture.SaveActiveWindow(this);
             }
         }
 

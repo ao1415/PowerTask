@@ -12,23 +12,29 @@ namespace WinCapt
 {
     internal class GraphicsCapture
     {
+        private readonly WinRTLibrary.GraphicsCapture _capture = new();
+
         /// <summary>
         /// アクティブウィンドウをキャプチャして保存する
         /// </summary>
         /// <param name="winCapt"></param>
-        public static async void SaveActiveWindow(WinCapt winCapt)
+        public async void SaveActiveWindow(WinCapt winCapt)
         {
             IntPtr hwnd = NativeMethods.GetForegroundWindow();
             if (hwnd != IntPtr.Zero)
             {
-                GraphicsCapturePicker picker=new();
-                GraphicsCaptureItem item = await picker.PickSingleItemAsync();
-                //WindowId id = new((ulong)hwnd);
-                //GraphicsCaptureItem item = GraphicsCaptureItem.TryCreateFromWindowId(id);
+                //_ = NativeMethods.GetWindowTextW(hwnd, out StringBuilder title, 255);
+                
+                var buffer = _capture.GetWindowCapture((long)hwnd);
+                if (buffer != null)
+                {
+                    //string filePath = winCapt.GetSaveFilePath(title.ToString());
+                    string filePath = winCapt.GetSaveFilePath("test");
+                    Bitmap bmp = new(new MemoryStream(buffer));
 
-                _ = NativeMethods.GetWindowTextA(hwnd, out StringBuilder title, 255);
-                string filePath = winCapt.GetSaveFilePath(title.ToString());
 
+                    bmp.Save(filePath);
+                }
             }
         }
 

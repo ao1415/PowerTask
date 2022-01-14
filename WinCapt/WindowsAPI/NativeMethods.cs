@@ -28,6 +28,6 @@ namespace BasicLibrary.WindowsAPI
         /// <param name="nMaxCount">バッファーにコピーする最大文字数</param>
         /// <returns>コピーされた文字列の長さ</returns>
         [DllImport("user32.dll", CharSet = CharSet.Unicode, SetLastError = true)]
-        public static extern int GetWindowTextA(IntPtr hWnd, [MarshalAs(UnmanagedType.LPWStr), Out] out StringBuilder lpString, int nMaxCount);
+        public static extern int GetWindowTextW(IntPtr hWnd, [MarshalAs(UnmanagedType.LPWStr), Out] out StringBuilder lpString, int nMaxCount);
     }
 }

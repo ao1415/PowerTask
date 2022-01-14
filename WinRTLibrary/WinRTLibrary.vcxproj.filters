@@ -34,6 +34,7 @@
     <ClInclude Include="stb_image_write.h">
       <Filter>lib</Filter>
     </ClInclude>
+    <ClInclude Include="CaptureWindow.h" />
   </ItemGroup>
   <ItemGroup>
     <Midl Include="GraphicsCapture.idl" />

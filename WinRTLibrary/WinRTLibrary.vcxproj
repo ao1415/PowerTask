@@ -124,6 +124,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="CaptureWindow.h" />
     <ClInclude Include="capture.interop.h" />
     <ClInclude Include="composition.interop.h" />
     <ClInclude Include="d3dHelpers.h" />

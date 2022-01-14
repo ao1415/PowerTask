@@ -1,6 +1,6 @@
 ﻿#include "pch.h"
-#include "Class.h"
-#include "Class.g.cpp"
+#include "GraphicsCapture.h"
+#include "GraphicsCapture.g.cpp"
 
 namespace winrt::WinRTLibrary::implementation
 {

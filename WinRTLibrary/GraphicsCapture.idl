@@ -1,9 +1,9 @@
 namespace WinRTLibrary
 {
 	[default_interface]
-	runtimeclass Class
+	runtimeclass GraphicsCapture
 	{
-		Class();
-		void start([in] String path);
+		GraphicsCapture();
+		UInt8[] GetWindowCapture(Int64 hwnd);
 	}
 }
