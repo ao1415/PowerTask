@@ -46,8 +46,15 @@ namespace WinCron
         /// <param name="e"></param>
         private void Watcher_Changed(object sender, FileSystemEventArgs e)
         {
-            Logger.Information("[WinCron]設定ファイル更新検知");
-            ReadConfig();
+            try
+            {
+                Logger.Information("[WinCron]設定ファイル更新検知");
+                ReadConfig();
+            }
+            catch (Exception ex)
+            {
+                Logger.Error(ex, "[WinCron]");
+            }
         }
 
         /// <summary>
@@ -57,24 +64,31 @@ namespace WinCron
         /// <param name="e"></param>
         private void WinCron_Clock(object? sender, EventArgs e)
         {
-            Logger.Verbose("[WinCron]");
-
-            List<ConfigParse> execList = new();
-            DateTime now = DateTime.Now;
-            lock (Configs)
+            try
             {
-                foreach (ConfigParse item in Configs)
+                Logger.Verbose("[WinCron]");
+
+                List<ConfigParse> execList = new();
+                DateTime now = DateTime.Now;
+                lock (Configs)
                 {
-                    if (item.IsMatch(now))
+                    foreach (ConfigParse item in Configs)
                     {
-                        execList.Add(item);
+                        if (item.IsMatch(now))
+                        {
+                            execList.Add(item);
+                        }
                     }
                 }
-            }
 
-            foreach (var exec in execList)
+                foreach (var exec in execList)
+                {
+                    ShellExecuter.Exec(exec.Path, exec.Param);
+                }
+            }
+            catch (Exception ex)
             {
-                ShellExecuter.Exec(exec.Path, exec.Param);
+                Logger.Error(ex, "[WinCron]");
             }
         }
 

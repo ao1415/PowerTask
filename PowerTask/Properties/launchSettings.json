@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "PowerTask": {
+      "commandName": "Project",
+      "nativeDebugging": true
+    }
+  }
+}

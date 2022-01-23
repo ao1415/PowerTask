@@ -15,9 +15,12 @@ namespace BasicLibrary
         public static GlobalKeyEventInvoker Instance { get; } = new GlobalKeyEventInvoker();
 
         /// <summary>キー押下イベント</summary>
-        public event KeyEventHandler? KeyDown;
+        private event KeyEventHandler? _keyDown;
         /// <summary>キー離上イベント</summary>
-        public event KeyEventHandler? KeyUp;
+        private event KeyEventHandler? _keyUp;
+
+        /// <summary>イベント重複ガード</summary>
+        private readonly Dictionary<string, bool> _raiseLock = new();
 
         /// <summary>フックハンドル</summary>
         private SafeHookHandle? _hookHandle = null;
@@ -33,6 +36,59 @@ namespace BasicLibrary
         ~GlobalKeyEventInvoker()
         {
             Unhook();
+        }
+
+        /// <summary>
+        /// キー押下イベント追加
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="event"></param>
+        /// <exception cref="ArgumentException"></exception>
+        public void AddKeyDownEvent(string name, KeyEventHandler @event)
+        {
+            string registName = $"{nameof(_keyDown)}:{name}";
+            if (_raiseLock.ContainsKey(registName))
+            {
+                throw new ArgumentException($"名前が重複しています:{name}");
+            }
+
+            _raiseLock.Add(registName, false);
+            _keyDown += async (sender, e) =>
+            {
+                if (!_raiseLock[registName])
+                {
+                    _raiseLock[registName] = true;
+                    await Task.Run(() => { @event(sender, e); });
+                    _raiseLock[registName] = false;
+                }
+            };
+
+        }
+
+        /// <summary>
+        /// キー離上イベント追加
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="event"></param>
+        /// <exception cref="ArgumentException"></exception>
+        public void AddKeyUpEvent(string name, KeyEventHandler @event)
+        {
+            string registName = $"{nameof(_keyUp)}:{name}";
+            if (_raiseLock.ContainsKey(registName))
+            {
+                throw new ArgumentException($"名前が重複しています:{name}");
+            }
+
+            _raiseLock.Add(registName, false);
+            _keyUp += async (sender, e) =>
+            {
+                if (!_raiseLock[registName])
+                {
+                    _raiseLock[registName] = true;
+                    await Task.Run(() => { @event(sender, e); });
+                    _raiseLock[registName] = false;
+                }
+            };
         }
 
         /// <summary>
@@ -98,7 +154,7 @@ namespace BasicLibrary
         /// <param name="keyCode">仮想キーコード</param>
         private void OnKeyDownEvent(Keys keys)
         {
-            KeyDown?.Invoke(this, new KeyEventArgs(keys));
+            _keyDown?.Invoke(this, new KeyEventArgs(keys));
         }
 
         /// <summary>
@@ -107,7 +163,7 @@ namespace BasicLibrary
         /// <param name="keyCode">仮想キーコード</param>
         private void OnKeyUpEvent(Keys keys)
         {
-            KeyUp?.Invoke(this, new KeyEventArgs(keys));
+            _keyUp?.Invoke(this, new KeyEventArgs(keys));
         }
     }
 

@@ -1,9 +1,0 @@
-namespace WinRTLibrary
-{
-	[default_interface]
-	runtimeclass GraphicsCapture
-	{
-		GraphicsCapture();
-		UInt8[] GetWindowCapture(Int64 hwnd);
-	}
-}
