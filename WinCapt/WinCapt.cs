@@ -25,7 +25,7 @@ namespace WinCapt
         {
             Logger.Log.Information("初期化開始");
 
-            GlobalKeyEventInvoker.Instance.AddKeyDownEvent(nameof(WinCapt_KeyDown), WinCapt_KeyDown);
+            GlobalKeyEventInvoker.Instance.KeyDown.AddEvent(WinCapt_KeyDown);
 
             Logger.Log.Information("初期化終了");
         }
