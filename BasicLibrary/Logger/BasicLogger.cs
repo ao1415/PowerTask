@@ -23,6 +23,7 @@ namespace BasicLibrary.Logger
             long fileSizeLimitBytes = 1024 * 1024 * 10; // 10MB
 
             Log.Logger = new LoggerConfiguration()
+                            //.MinimumLevel.Verbose()
                             .MinimumLevel.Debug()
                             .Enrich.WithThreadId()
                             .Enrich.WithExceptionDetails()

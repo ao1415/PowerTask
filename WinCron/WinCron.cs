@@ -36,7 +36,7 @@ namespace WinCron
 
             ReadConfig();
 
-            ClockEventInvoker.Instance.AddEvent("WinCron", WinCron_Clock);
+            ClockEventInvoker.Instance.Clock.AddEvent(WinCron_Clock);
 
             Logger.Log.Information("初期化終了");
         }
@@ -64,7 +64,7 @@ namespace WinCron
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void WinCron_Clock(object? sender, EventArgs e)
+        private void WinCron_Clock(object sender, EventArgs e)
         {
             try
             {
