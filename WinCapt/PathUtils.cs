@@ -46,7 +46,7 @@ namespace WinCapt
             }
             catch (Exception ex)
             {
-                Logger.Warning(ex, $"[WinCpat]使用できないファイル名です:{fileName}");
+                Logger.Log.Warning(ex, $"使用できないファイル名です:{fileName}");
                 return null;
             }
 

@@ -9,7 +9,7 @@ namespace PowerTask
         /// </summary>
         public static bool Initialize()
         {
-            Logger.Information("アプリ初期化開始");
+            Logger.Log.Information("アプリ初期化開始");
 
             try
             {
@@ -18,11 +18,11 @@ namespace PowerTask
             }
             catch (Exception ex)
             {
-                Logger.Fatal(ex, "アプリ初期化失敗");
+                Logger.Log.Fatal(ex, "アプリ初期化失敗");
                 return false;
             }
 
-            Logger.Information("アプリ初期化終了");
+            Logger.Log.Information("アプリ初期化終了");
 
             return true;
         }

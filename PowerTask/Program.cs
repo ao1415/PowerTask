@@ -14,9 +14,9 @@ namespace PowerTask
             ApplicationConfiguration.Initialize();
 
             Config.Initialize(ConfigurationManager.AppSettings);
-            Logger.Initialize();
+            BasicLogger.Initialize();
 
-            Logger.Information("アプリ起動");
+            Logger.Log.Information("アプリ起動");
 
             if (Initializer.Initialize())
             {
@@ -24,7 +24,7 @@ namespace PowerTask
                 Application.Run();
             }
 
-            Logger.Information("アプリ終了");
+            Logger.Log.Information("アプリ終了");
         }
     }
 }

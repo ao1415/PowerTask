@@ -22,6 +22,7 @@ namespace BasicLibrary
         public static void Initialize(NameValueCollection config)
         {
             AppSettings = new(config);
+            Logger.Log.Information("コンフィグ設定完了");
         }
     }
 

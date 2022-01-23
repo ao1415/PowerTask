@@ -21,11 +21,11 @@ namespace WinCapt
         /// </summary>
         void IPowerTaskModule.Initialize()
         {
-            Logger.Information("[WinCapt]初期化開始");
+            Logger.Log.Information("初期化開始");
 
             GlobalKeyEventInvoker.Instance.AddKeyDownEvent(nameof(WinCapt_KeyDown), WinCapt_KeyDown);
 
-            Logger.Information("[WinCapt]初期化終了");
+            Logger.Log.Information("初期化終了");
         }
 
         /// <summary>
@@ -44,7 +44,7 @@ namespace WinCapt
             }
             catch (Exception ex)
             {
-                Logger.Error(ex, "[WinCapt]");
+                Logger.Log.Error(ex, "");
             }
         }
     }

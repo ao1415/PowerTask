@@ -63,6 +63,7 @@ namespace BasicLibrary
                 }
             };
 
+            Logger.Log.Information($"キー押下イベント登録:{name}");
         }
 
         /// <summary>
@@ -89,6 +90,8 @@ namespace BasicLibrary
                     _raiseLock[registName] = false;
                 }
             };
+
+            Logger.Log.Information($"キー離上イベント登録:{name}");
         }
 
         /// <summary>
@@ -128,7 +131,7 @@ namespace BasicLibrary
             {
                 try
                 {
-                    Logger.Verbose("キーフック");
+                    Logger.Log.Verbose("キーフック");
                     Keys keys = (Keys)lParam.vkCode | Control.ModifierKeys;
                     if (wParam == (IntPtr)KeyboardMessage.WM_KEYDOWN || wParam == (IntPtr)KeyboardMessage.WM_SYSKEYDOWN)
                     {
@@ -141,7 +144,7 @@ namespace BasicLibrary
                 }
                 catch (Exception ex)
                 {
-                    Logger.Error(ex, "グローバルキーフック処理でエラー");
+                    Logger.Log.Error(ex, "グローバルキーフック処理でエラー");
                 }
             }
 

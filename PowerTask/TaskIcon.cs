@@ -39,7 +39,7 @@ namespace PowerTask
         /// <param name="e"></param>
         private void ExitToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Logger.Information("終了選択");
+            Logger.Log.Information("終了選択");
             _timer.Stop();
 
             Application.Exit();
@@ -52,9 +52,9 @@ namespace PowerTask
         /// <param name="e"></param>
         private void LogOpenToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Logger.Information("ログフォルダ表示");
+            Logger.Log.Information("ログフォルダ表示");
 
-            _ = System.Diagnostics.Process.Start(Logger.FolderPath);
+            _ = System.Diagnostics.Process.Start(BasicLogger.FolderPath);
         }
 
         /// <summary>

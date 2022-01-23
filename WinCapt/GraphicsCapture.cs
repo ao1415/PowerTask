@@ -17,7 +17,7 @@ namespace WinCapt
             IntPtr hwnd = NativeMethods.GetForegroundWindow();
             if (hwnd == IntPtr.Zero)
             {
-                Logger.Warning("[WinCapt]アクティブウィンドウが取得できませんでした");
+                Logger.Log.Warning("アクティブウィンドウが取得できませんでした");
                 return;
             }
 
@@ -27,7 +27,7 @@ namespace WinCapt
             string? filePath = pathUtils.GetSaveFilePath(title);
             if (filePath == null)
             {
-                Logger.Warning("[WinCapt]ファイル名に異常があります");
+                Logger.Log.Warning("ファイル名に異常があります");
                 return;
             }
 

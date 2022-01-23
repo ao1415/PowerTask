@@ -34,7 +34,7 @@ namespace WinCron
             string[] timingSplit = record.Timing?.Split(" ") ?? Array.Empty<string>();
             if (timingSplit.Length != 6)
             {
-                Logger.Warning($"[WinCron]Timingの設定値に異常があります：[{name}]{record.Timing}");
+                Logger.Log.Warning($"Timingの設定値に異常があります：[{name}]{record.Timing}");
                 return null;
             }
 
@@ -58,18 +58,18 @@ namespace WinCron
             }
             catch (Exception)
             {
-                Logger.Warning($"[WinCron]Timingの設定値に異常があります：[{name}]{record.Timing}");
+                Logger.Log.Warning($"Timingの設定値に異常があります：[{name}]{record.Timing}");
                 return null;
             }
 
             if (string.IsNullOrEmpty(path))
             {
-                Logger.Warning($"[WinCron]Pathの設定値に異常があります：{name}");
+                Logger.Log.Warning($"Pathの設定値に異常があります：{name}");
                 return null;
             }
             else if (!File.Exists(path))
             {
-                Logger.Warning($"[WinCron]Pathに指定されたファイルがありません：{name}, {path}");
+                Logger.Log.Warning($"Pathに指定されたファイルがありません：{name}, {path}");
                 return null;
             }
 
@@ -113,7 +113,7 @@ namespace WinCron
 
                 if (section.Length == 1)
                 {
-                    Logger.Verbose($"[WinCron]Parse:{section[0]}");
+                    Logger.Log.Verbose($"Parse:{section[0]}");
                     target.Add(int.Parse(section[0]));
                 }
                 else
@@ -121,11 +121,11 @@ namespace WinCron
                     int d = 1;
                     if (item.Length == 2)
                     {
-                        Logger.Verbose($"[WinCron]Parse:{item[1]}");
+                        Logger.Log.Verbose($"Parse:{item[1]}");
                         d = int.Parse(item[1]);
                     }
 
-                    Logger.Verbose($"[WinCron]Parse:{section[0]}:{section[1]}");
+                    Logger.Log.Verbose($"Parse:{section[0]}:{section[1]}");
                     int begin = int.Parse(section[0]);
                     int end = int.Parse(section[1]);
 
@@ -136,7 +136,7 @@ namespace WinCron
                 }
             }
 
-            Logger.Verbose($"[WinCron]{string.Join(",", target)}");
+            Logger.Log.Verbose($"{string.Join(",", target)}");
 
             return target;
         }

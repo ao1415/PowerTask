@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BasicLibrary
+namespace WinCron
 {
     internal class Logger
     {
-        public static BasicLogger Log { get; } = new("BasicLibrary");
+        public static BasicLibrary.BasicLogger Log { get; } = new("WinCron");
     }
 }

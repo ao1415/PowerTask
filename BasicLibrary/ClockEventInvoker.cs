@@ -41,6 +41,8 @@
                 }
             };
 
+            Logger.Log.Information($"定期イベント登録:{name}");
+
         }
 
         /// <summary>
