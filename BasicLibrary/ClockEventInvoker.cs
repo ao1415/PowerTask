@@ -10,7 +10,7 @@
         private event EventHandler? Clock = null;
 
         /// <summary>イベント重複ガード</summary>
-        private readonly Dictionary<string, bool> RaiseLock = new();
+        private readonly Dictionary<string, bool> _raiseLock = new();
 
         private ClockEventInvoker()
         {
@@ -25,19 +25,19 @@
         /// <exception cref="ArgumentException"></exception>
         public void AddEvent(string name, EventHandler @event)
         {
-            if (RaiseLock.ContainsKey(name))
+            if (_raiseLock.ContainsKey(name))
             {
                 throw new ArgumentException($"名前が重複しています:{name}");
             }
 
-            RaiseLock.Add(name, false);
+            _raiseLock.Add(name, false);
             Clock += async (sender, e) =>
             {
-                if (!RaiseLock[name])
+                if (!_raiseLock[name])
                 {
-                    RaiseLock[name] = true;
+                    _raiseLock[name] = true;
                     await Task.Run(() => { @event(sender, e); });
-                    RaiseLock[name] = false;
+                    _raiseLock[name] = false;
                 }
             };
 

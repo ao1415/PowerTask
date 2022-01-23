@@ -4,28 +4,31 @@ namespace PowerTask
 {
     public partial class TaskIcon : Form
     {
-        private readonly System.Timers.Timer Timer;
+        private readonly System.Timers.Timer _timer;
 
         /// <summary>タイマーインターバル取得</summary>
         /// <returns></returns>
-        private static double GetInterval() => 1001 - DateTime.Now.Millisecond;
+        private static double GetInterval()
+        {
+            return 1001 - DateTime.Now.Millisecond;
+        }
 
         public TaskIcon()
         {
             InitializeComponent();
 
-            Timer = new System.Timers.Timer
+            _timer = new System.Timers.Timer
             {
                 Interval = GetInterval(),
                 AutoReset = true
             };
-            Timer.Elapsed += (sender, e) =>
+            _timer.Elapsed += (sender, e) =>
             {
                 ClockEventInvoker.Instance.RaiseEvent();
-                Timer.Interval = GetInterval();
+                _timer.Interval = GetInterval();
             };
 
-            Timer.Start();
+            _timer.Start();
 
         }
 
@@ -37,7 +40,7 @@ namespace PowerTask
         private void ExitToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Logger.Information("終了選択");
-            Timer.Stop();
+            _timer.Stop();
 
             Application.Exit();
         }

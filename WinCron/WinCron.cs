@@ -4,8 +4,8 @@ namespace WinCron
 {
     public class WinCron : IPowerTaskModule
     {
-        private readonly FileSystemWatcher Watcher = new();
-        private readonly List<ConfigParse> Configs = new();
+        private readonly FileSystemWatcher _watcher = new();
+        private readonly List<ConfigParse> _configs = new();
 
         private string FolderPath { get; init; } = Config.AppSettings["ConfigFolder"];
         private string FileName { get; init; } = Config.AppSettings["WinCronJsonFile"];
@@ -26,11 +26,11 @@ namespace WinCron
                 File.WriteAllText(filePath, "[]");
             }
 
-            Watcher.NotifyFilter = NotifyFilters.LastWrite;
-            Watcher.Path = FolderPath;
-            Watcher.Filter = FileName;
-            Watcher.Changed += new FileSystemEventHandler(Watcher_Changed);
-            Watcher.EnableRaisingEvents = true;
+            _watcher.NotifyFilter = NotifyFilters.LastWrite;
+            _watcher.Path = FolderPath;
+            _watcher.Filter = FileName;
+            _watcher.Changed += new FileSystemEventHandler(Watcher_Changed);
+            _watcher.EnableRaisingEvents = true;
 
             ReadConfig();
 
@@ -70,9 +70,9 @@ namespace WinCron
 
                 List<ConfigParse> execList = new();
                 DateTime now = DateTime.Now;
-                lock (Configs)
+                lock (_configs)
                 {
-                    foreach (ConfigParse item in Configs)
+                    foreach (ConfigParse item in _configs)
                     {
                         if (item.IsMatch(now))
                         {
@@ -130,10 +130,10 @@ namespace WinCron
                     }
                 }
 
-                lock (Configs)
+                lock (_configs)
                 {
-                    Configs.Clear();
-                    Configs.AddRange(update);
+                    _configs.Clear();
+                    _configs.AddRange(update);
                 }
                 Logger.Information("[WinCron]設定ファイル反映完了");
             }

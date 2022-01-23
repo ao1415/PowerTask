@@ -15,9 +15,9 @@ namespace BasicLibrary
         public static GlobalKeyEventInvoker Instance { get; } = new GlobalKeyEventInvoker();
 
         /// <summary>キー押下イベント</summary>
-        private event KeyEventHandler? _keyDown;
+        private event KeyEventHandler? KeyDown;
         /// <summary>キー離上イベント</summary>
-        private event KeyEventHandler? _keyUp;
+        private event KeyEventHandler? KeyUp;
 
         /// <summary>イベント重複ガード</summary>
         private readonly Dictionary<string, bool> _raiseLock = new();
@@ -46,14 +46,14 @@ namespace BasicLibrary
         /// <exception cref="ArgumentException"></exception>
         public void AddKeyDownEvent(string name, KeyEventHandler @event)
         {
-            string registName = $"{nameof(_keyDown)}:{name}";
+            string registName = $"{nameof(KeyDown)}:{name}";
             if (_raiseLock.ContainsKey(registName))
             {
                 throw new ArgumentException($"名前が重複しています:{name}");
             }
 
             _raiseLock.Add(registName, false);
-            _keyDown += async (sender, e) =>
+            KeyDown += async (sender, e) =>
             {
                 if (!_raiseLock[registName])
                 {
@@ -73,14 +73,14 @@ namespace BasicLibrary
         /// <exception cref="ArgumentException"></exception>
         public void AddKeyUpEvent(string name, KeyEventHandler @event)
         {
-            string registName = $"{nameof(_keyUp)}:{name}";
+            string registName = $"{nameof(KeyUp)}:{name}";
             if (_raiseLock.ContainsKey(registName))
             {
                 throw new ArgumentException($"名前が重複しています:{name}");
             }
 
             _raiseLock.Add(registName, false);
-            _keyUp += async (sender, e) =>
+            KeyUp += async (sender, e) =>
             {
                 if (!_raiseLock[registName])
                 {
@@ -154,7 +154,7 @@ namespace BasicLibrary
         /// <param name="keyCode">仮想キーコード</param>
         private void OnKeyDownEvent(Keys keys)
         {
-            _keyDown?.Invoke(this, new KeyEventArgs(keys));
+            KeyDown?.Invoke(this, new KeyEventArgs(keys));
         }
 
         /// <summary>
@@ -163,7 +163,7 @@ namespace BasicLibrary
         /// <param name="keyCode">仮想キーコード</param>
         private void OnKeyUpEvent(Keys keys)
         {
-            _keyUp?.Invoke(this, new KeyEventArgs(keys));
+            KeyUp?.Invoke(this, new KeyEventArgs(keys));
         }
     }
 
