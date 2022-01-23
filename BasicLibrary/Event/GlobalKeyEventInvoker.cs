@@ -7,7 +7,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BasicLibrary
+namespace BasicLibrary.Event
 {
     public sealed class GlobalKeyEventInvoker
     {
@@ -63,7 +63,7 @@ namespace BasicLibrary
                 }
             };
 
-            Logger.Log.Information($"キー押下イベント登録:{name}");
+            Logger.Logger.Log.Information($"キー押下イベント登録:{name}");
         }
 
         /// <summary>
@@ -91,7 +91,7 @@ namespace BasicLibrary
                 }
             };
 
-            Logger.Log.Information($"キー離上イベント登録:{name}");
+            Logger.Logger.Log.Information($"キー離上イベント登録:{name}");
         }
 
         /// <summary>
@@ -131,7 +131,7 @@ namespace BasicLibrary
             {
                 try
                 {
-                    Logger.Log.Verbose("キーフック");
+                    Logger.Logger.Log.Verbose("キーフック");
                     Keys keys = (Keys)lParam.vkCode | Control.ModifierKeys;
                     if (wParam == (IntPtr)KeyboardMessage.WM_KEYDOWN || wParam == (IntPtr)KeyboardMessage.WM_SYSKEYDOWN)
                     {
@@ -144,7 +144,7 @@ namespace BasicLibrary
                 }
                 catch (Exception ex)
                 {
-                    Logger.Log.Error(ex, "グローバルキーフック処理でエラー");
+                    Logger.Logger.Log.Error(ex, "グローバルキーフック処理でエラー");
                 }
             }
 

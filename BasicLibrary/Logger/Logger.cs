@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BasicLibrary
+namespace BasicLibrary.Logger
 {
     internal class Logger
     {

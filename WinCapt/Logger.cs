@@ -8,6 +8,6 @@ namespace WinCapt
 {
     internal class Logger
     {
-        public static BasicLibrary.BasicLogger Log { get; } = new("WinCapt");
+        public static BasicLibrary.Logger.BasicLogger Log { get; } = new("WinCapt");
     }
 }

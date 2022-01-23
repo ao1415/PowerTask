@@ -1,35 +1,14 @@
 using BasicLibrary;
+using BasicLibrary.Event;
+using BasicLibrary.Logger;
 
 namespace PowerTask
 {
     public partial class TaskIcon : Form
     {
-        private readonly System.Timers.Timer _timer;
-
-        /// <summary>タイマーインターバル取得</summary>
-        /// <returns></returns>
-        private static double GetInterval()
-        {
-            return 1001 - DateTime.Now.Millisecond;
-        }
-
         public TaskIcon()
         {
             InitializeComponent();
-
-            _timer = new System.Timers.Timer
-            {
-                Interval = GetInterval(),
-                AutoReset = true
-            };
-            _timer.Elapsed += (sender, e) =>
-            {
-                ClockEventInvoker.Instance.RaiseEvent();
-                _timer.Interval = GetInterval();
-            };
-
-            _timer.Start();
-
         }
 
         /// <summary>
@@ -40,7 +19,6 @@ namespace PowerTask
         private void ExitToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Logger.Log.Information("終了選択");
-            _timer.Stop();
 
             Application.Exit();
         }

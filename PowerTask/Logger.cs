@@ -8,6 +8,6 @@ namespace PowerTask
 {
     internal class Logger
     {
-        public static BasicLibrary.BasicLogger Log { get; } = new("PowerTask");
+        public static BasicLibrary.Logger.BasicLogger Log { get; } = new("PowerTask");
     }
 }

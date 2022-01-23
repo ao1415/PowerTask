@@ -8,6 +8,6 @@ namespace WinCron
 {
     internal class Logger
     {
-        public static BasicLibrary.BasicLogger Log { get; } = new("WinCron");
+        public static BasicLibrary.Logger.BasicLogger Log { get; } = new("WinCron");
     }
 }

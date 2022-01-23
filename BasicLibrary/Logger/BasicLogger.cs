@@ -3,7 +3,7 @@ using Serilog.Events;
 using Serilog.Exceptions;
 using Serilog.Formatting.Compact;
 
-namespace BasicLibrary
+namespace BasicLibrary.Logger
 {
     public class BasicLogger
     {

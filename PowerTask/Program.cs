@@ -1,4 +1,6 @@
 using BasicLibrary;
+using BasicLibrary.Config;
+using BasicLibrary.Logger;
 using System.Configuration;
 
 namespace PowerTask

@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BasicLibrary
+namespace BasicLibrary.Config
 {
     /// <summary>
     /// 設定ファイル
@@ -22,33 +22,7 @@ namespace BasicLibrary
         public static void Initialize(NameValueCollection config)
         {
             AppSettings = new(config);
-            Logger.Log.Information("コンフィグ設定完了");
+            Logger.Logger.Log.Information("コンフィグ設定完了");
         }
     }
-
-    /// <summary>
-    /// 設定コレクション
-    /// </summary>
-    public class ConfigCollection
-    {
-        private readonly NameValueCollection Settings = new();
-
-        public ConfigCollection()
-        {
-
-        }
-        public ConfigCollection(NameValueCollection config)
-        {
-            Settings = config;
-        }
-
-        public string this[string name]
-        {
-            get
-            {
-                return Settings[name] ?? string.Empty;
-            }
-        }
-    }
-
 }
