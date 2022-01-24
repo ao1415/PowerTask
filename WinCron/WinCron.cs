@@ -1,11 +1,13 @@
 ﻿using BasicLibrary;
+using BasicLibrary.Config;
+using BasicLibrary.Event;
 
 namespace WinCron
 {
     public class WinCron : IPowerTaskModule
     {
-        private readonly FileSystemWatcher Watcher = new();
-        private readonly List<ConfigParse> Configs = new();
+        private readonly FileSystemWatcher _watcher = new();
+        private readonly List<ConfigParse> _configs = new();
 
         private string FolderPath { get; init; } = Config.AppSettings["ConfigFolder"];
         private string FileName { get; init; } = Config.AppSettings["WinCronJsonFile"];
@@ -15,7 +17,7 @@ namespace WinCron
         /// </summary>
         void IPowerTaskModule.Initialize()
         {
-            Logger.Information("[WinCron]初期化開始");
+            Logger.Log.Information("初期化開始");
             if (!Directory.Exists(FolderPath))
             {
                 Directory.CreateDirectory(FolderPath);
@@ -26,17 +28,17 @@ namespace WinCron
                 File.WriteAllText(filePath, "[]");
             }
 
-            Watcher.NotifyFilter = NotifyFilters.LastWrite;
-            Watcher.Path = FolderPath;
-            Watcher.Filter = FileName;
-            Watcher.Changed += new FileSystemEventHandler(Watcher_Changed);
-            Watcher.EnableRaisingEvents = true;
+            _watcher.NotifyFilter = NotifyFilters.LastWrite;
+            _watcher.Path = FolderPath;
+            _watcher.Filter = FileName;
+            _watcher.Changed += new FileSystemEventHandler(Watcher_Changed);
+            _watcher.EnableRaisingEvents = true;
 
             ReadConfig();
 
-            ClockEventInvoker.Instance.AddEvent("WinCron", WinCron_Clock);
+            ClockEventInvoker.Instance.Clock.AddEvent(WinCron_Clock);
 
-            Logger.Information("[WinCron]初期化終了");
+            Logger.Log.Information("初期化終了");
         }
 
         /// <summary>
@@ -48,12 +50,12 @@ namespace WinCron
         {
             try
             {
-                Logger.Information("[WinCron]設定ファイル更新検知");
+                Logger.Log.Information("設定ファイル更新検知");
                 ReadConfig();
             }
             catch (Exception ex)
             {
-                Logger.Error(ex, "[WinCron]");
+                Logger.Log.Error(ex, "");
             }
         }
 
@@ -62,17 +64,17 @@ namespace WinCron
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void WinCron_Clock(object? sender, EventArgs e)
+        private void WinCron_Clock(object sender, EventArgs e)
         {
             try
             {
-                Logger.Verbose("[WinCron]");
+                Logger.Log.Verbose("");
 
                 List<ConfigParse> execList = new();
                 DateTime now = DateTime.Now;
-                lock (Configs)
+                lock (_configs)
                 {
-                    foreach (ConfigParse item in Configs)
+                    foreach (ConfigParse item in _configs)
                     {
                         if (item.IsMatch(now))
                         {
@@ -88,7 +90,7 @@ namespace WinCron
             }
             catch (Exception ex)
             {
-                Logger.Error(ex, "[WinCron]");
+                Logger.Log.Error(ex, "");
             }
         }
 
@@ -97,7 +99,7 @@ namespace WinCron
         /// </summary>
         private void ReadConfig()
         {
-            Logger.Information("[WinCron]設定ファイル読み込み開始");
+            Logger.Log.Information("設定ファイル読み込み開始");
 
             List<ConfigJsonRecord>? jsonList;
             try
@@ -114,7 +116,7 @@ namespace WinCron
             }
             catch (Exception ex)
             {
-                Logger.Error(ex, "[WinCron]設定読み込みに失敗しました");
+                Logger.Log.Error(ex, "設定読み込みに失敗しました");
                 return;
             }
 
@@ -130,15 +132,15 @@ namespace WinCron
                     }
                 }
 
-                lock (Configs)
+                lock (_configs)
                 {
-                    Configs.Clear();
-                    Configs.AddRange(update);
+                    _configs.Clear();
+                    _configs.AddRange(update);
                 }
-                Logger.Information("[WinCron]設定ファイル反映完了");
+                Logger.Log.Information("設定ファイル反映完了");
             }
 
-            Logger.Information("[WinCron]設定ファイル読み込み終了");
+            Logger.Log.Information("設定ファイル読み込み終了");
         }
     }
 }

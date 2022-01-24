@@ -1,4 +1,6 @@
 ﻿using BasicLibrary;
+using BasicLibrary.Config;
+using BasicLibrary.Event;
 using System.Text;
 using System.Text.RegularExpressions;
 
@@ -21,11 +23,11 @@ namespace WinCapt
         /// </summary>
         void IPowerTaskModule.Initialize()
         {
-            Logger.Information("[WinCapt]初期化開始");
+            Logger.Log.Information("初期化開始");
 
-            GlobalKeyEventInvoker.Instance.AddKeyDownEvent(nameof(WinCapt_KeyDown), WinCapt_KeyDown);
+            GlobalKeyEventInvoker.Instance.KeyDown.AddEvent(WinCapt_KeyDown);
 
-            Logger.Information("[WinCapt]初期化終了");
+            Logger.Log.Information("初期化終了");
         }
 
         /// <summary>
@@ -44,7 +46,7 @@ namespace WinCapt
             }
             catch (Exception ex)
             {
-                Logger.Error(ex, "[WinCapt]");
+                Logger.Log.Error(ex, "");
             }
         }
     }
