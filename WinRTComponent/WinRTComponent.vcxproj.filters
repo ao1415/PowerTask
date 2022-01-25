@@ -11,14 +11,15 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
-    <ClCompile Include="Class.cpp" />
     <ClCompile Include="$(GeneratedFilesDir)module.g.cpp" />
+    <ClCompile Include="GraphicsCapture.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
+    <ClInclude Include="GraphicsCapture.h" />
   </ItemGroup>
   <ItemGroup>
-    <Midl Include="Class.idl" />
+    <Midl Include="GraphicsCapture.idl" />
   </ItemGroup>
   <ItemGroup>
     <None Include="WinRTComponent.def" />

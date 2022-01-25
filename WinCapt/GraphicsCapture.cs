@@ -21,6 +21,9 @@ namespace WinCapt
                 return;
             }
 
+            WinRTComponent.GraphicsCapture capture = new();
+            byte[] data = capture.GetActiveWindow((ulong)hwnd.ToInt64());
+
             StringBuilder title = new(1024);
             _ = NativeMethods.GetWindowTextW(hwnd, title, title.Capacity);
 
@@ -33,7 +36,7 @@ namespace WinCapt
 
             if (NativeMethods.GetWindowRect(hwnd, out Rectangle rect))
             {
-                Bitmap bmp = new(rect.Width-rect.X, rect.Height - rect.Y);
+                Bitmap bmp = new(rect.Width - rect.X, rect.Height - rect.Y);
 
                 using Graphics g = Graphics.FromImage(bmp);
                 IntPtr hdc = g.GetHdc();

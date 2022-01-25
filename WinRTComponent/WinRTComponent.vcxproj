@@ -73,6 +73,9 @@
   <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <DesktopCompatible>true</DesktopCompatible>
   </PropertyGroup>
+  <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <DesktopCompatible>true</DesktopCompatible>
+  </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
   </ImportGroup>
@@ -120,21 +123,21 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
-    <ClInclude Include="Class.h">
-      <DependentUpon>Class.idl</DependentUpon>
+    <ClInclude Include="GraphicsCapture.h">
+      <DependentUpon>GraphicsCapture.idl</DependentUpon>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="Class.cpp">
-      <DependentUpon>Class.idl</DependentUpon>
+    <ClCompile Include="GraphicsCapture.cpp">
+      <DependentUpon>GraphicsCapture.idl</DependentUpon>
     </ClCompile>
     <ClCompile Include="$(GeneratedFilesDir)module.g.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <Midl Include="Class.idl" />
+    <Midl Include="GraphicsCapture.idl" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Directory.Build.props" />
