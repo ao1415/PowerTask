@@ -13,8 +13,6 @@ namespace WinCapt
 
         private readonly PathUtils _pathUtils;
 
-        private readonly HashSet<Keys> _pressKeys = new();
-
         public WinCapt()
         {
             _pathUtils = new PathUtils(FolderPathTemplate, FileNameTemplate);
@@ -39,30 +37,11 @@ namespace WinCapt
         /// <param name="e"></param>
         private void WinCapt_KeyDown(object? sender, KeyEventArgs e)
         {
-            _pressKeys.Add(e.KeyCode);
-
-            if (e.Alt)
-            {
-                if (_pressKeys.Contains(Keys.LWin) && _pressKeys.Contains(Keys.PrintScreen))
-                {
-                    GraphicsCapture.SaveActiveWindow(_pathUtils);
-                }
-            }
-
             if (e.KeyData == (Keys.Control | Keys.Alt | Keys.PrintScreen))
             {
                 GraphicsCapture.SaveActiveWindow(_pathUtils);
             }
         }
 
-        /// <summary>
-        /// キー離上イベント
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void WinCapt_KeyUp(object? sender, KeyEventArgs e)
-        {
-            _pressKeys.Remove(e.KeyCode);
-        }
     }
 }
