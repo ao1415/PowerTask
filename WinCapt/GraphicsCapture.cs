@@ -10,11 +10,13 @@ namespace WinCapt
 {
     internal class GraphicsCapture
     {
+        private readonly WinRTComponent.GraphicsCapture _capture = new();
+
         /// <summary>
         /// アクティブウィンドウをキャプチャして保存する
         /// </summary>
         /// <param name="winCapt"></param>
-        public static void SaveActiveWindow(PathUtils pathUtils)
+        public void SaveActiveWindow(PathUtils pathUtils)
         {
             IntPtr hwnd = NativeMethods.GetForegroundWindow();
             if (hwnd == IntPtr.Zero)
@@ -33,15 +35,15 @@ namespace WinCapt
                 return;
             }
 
-            WinRTComponent.GraphicsCapture capture = new();
-            byte[] data = capture.GetActiveWindow((ulong)hwnd.ToInt64(), out int width, out int height);
+            byte[] data = _capture.GetActiveWindow((ulong)hwnd.ToInt64(), out int width, out int height);
 
             Bitmap bmp = new(width, height, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
             BitmapData bmpData = bmp.LockBits(new Rectangle(Point.Empty, bmp.Size), ImageLockMode.WriteOnly, bmp.PixelFormat);
             Marshal.Copy(data, 0, bmpData.Scan0, data.Length);
             bmp.UnlockBits(bmpData);
-            bmp.Save(filePath);
-
+            // 1ピクセルだけ切り出し
+            bmp.Clone(new Rectangle(1, 1, bmp.Width - 2, bmp.Height - 2), bmp.PixelFormat).Save(filePath);
+            Logger.Log.Information($"画像を保存しました:{filePath}");
         }
 
     }

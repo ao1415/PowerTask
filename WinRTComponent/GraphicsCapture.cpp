@@ -66,7 +66,7 @@ namespace winrt::WinRTComponent::implementation {
 		return item;
 	}
 
-	void GraphicsCapture::onFrameArrived(const winrt::Windows::Graphics::Capture::Direct3D11CaptureFramePool& sender, const winrt::Windows::Foundation::IInspectable& args) {
+	void GraphicsCapture::onFrameArrived(const winrt::Windows::Graphics::Capture::Direct3D11CaptureFramePool& sender, const winrt::Windows::Foundation::IInspectable&) {
 		auto frame = sender.TryGetNextFrame();
 		auto size = frame.ContentSize();
 
