@@ -44,8 +44,18 @@ namespace BasicLibrary.Event
                 if (!_lock[@event])
                 {
                     _lock[@event] = true;
-                    await Task.Run(() => { @event(sender, e); });
-                    _lock[@event] = false;
+                    try
+                    {
+                        await Task.Run(() => { @event(sender, e); });
+                    }
+                    catch (Exception ex)
+                    {
+                        Logger.Logger.Log.Error(ex, $"例外発生[{registName}]");
+                    }
+                    finally
+                    {
+                        _lock[@event] = false;
+                    }
                 }
             };
 

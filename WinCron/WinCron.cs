@@ -66,31 +66,24 @@ namespace WinCron
         /// <param name="e"></param>
         private void WinCron_Clock(object sender, EventArgs e)
         {
-            try
-            {
-                Logger.Log.Verbose("");
+            Logger.Log.Verbose("");
 
-                List<ConfigParse> execList = new();
-                DateTime now = DateTime.Now;
-                lock (_configs)
+            List<ConfigParse> execList = new();
+            DateTime now = DateTime.Now;
+            lock (_configs)
+            {
+                foreach (ConfigParse item in _configs)
                 {
-                    foreach (ConfigParse item in _configs)
+                    if (item.IsMatch(now))
                     {
-                        if (item.IsMatch(now))
-                        {
-                            execList.Add(item);
-                        }
+                        execList.Add(item);
                     }
                 }
-
-                foreach (var exec in execList)
-                {
-                    ShellExecuter.Exec(exec.Path, exec.Param);
-                }
             }
-            catch (Exception ex)
+
+            foreach (var exec in execList)
             {
-                Logger.Log.Error(ex, "");
+                ShellExecuter.Exec(exec.Path, exec.Param);
             }
         }
 

@@ -37,16 +37,9 @@ namespace WinCapt
         /// <param name="e"></param>
         private void WinCapt_KeyDown(object? sender, KeyEventArgs e)
         {
-            try
+            if (e.KeyData == (Keys.Control | Keys.Alt | Keys.PrintScreen))
             {
-                if (e.KeyData == (Keys.Control | Keys.Alt | Keys.PrintScreen))
-                {
-                    GraphicsCapture.SaveActiveWindow(_pathUtils);
-                }
-            }
-            catch (Exception ex)
-            {
-                Logger.Log.Error(ex, "");
+                GraphicsCapture.SaveActiveWindow(_pathUtils);
             }
         }
     }
