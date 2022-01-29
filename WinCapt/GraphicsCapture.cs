@@ -42,21 +42,6 @@ namespace WinCapt
             bmp.UnlockBits(bmpData);
             bmp.Save(filePath);
 
-            //if (NativeMethods.GetWindowRect(hwnd, out Rectangle rect))
-            //{
-            //    Bitmap bmp = new(rect.Width - rect.X, rect.Height - rect.Y);
-
-            //    using Graphics g = Graphics.FromImage(bmp);
-            //    IntPtr hdc = g.GetHdc();
-            //    //NativeMethods.PrintWindow(hwnd, dc, 0);
-            //    IntPtr dc = NativeMethods.GetWindowDC(hwnd);
-            //    NativeMethods.BitBlt(hdc, 0, 0, bmp.Width, bmp.Height, dc, 0, 0, 0x00CC0020);
-            //    _ = NativeMethods.ReleaseDC(hwnd, dc);
-            //    g.ReleaseHdc(hdc);
-
-            //    bmp.Save(filePath);
-            //}
-
         }
 
     }

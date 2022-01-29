@@ -47,6 +47,8 @@ namespace winrt::WinRTComponent::implementation {
 
 			// capture start
 			m_capture_session = m_frame_pool.CreateCaptureSession(m_capture_item);
+			m_capture_session.IsCursorCaptureEnabled(false);
+			//m_capture_session.IsBorderRequired(false);
 			m_capture_session.StartCapture();
 			return true;
 		}
