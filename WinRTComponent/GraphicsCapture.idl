@@ -5,6 +5,6 @@ namespace WinRTComponent
     {
         GraphicsCapture();
 
-        UInt8[] GetActiveWindow(UInt64 hwnd);
+        UInt8[] GetActiveWindow(UInt64 hwnd, out Int32 width, out Int32 height);
     }
 }

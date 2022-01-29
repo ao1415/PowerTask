@@ -93,7 +93,6 @@ namespace winrt::WinRTComponent::implementation {
 			m_frame_pool = nullptr;
 		}
 		m_capture_item = nullptr;
-		m_callback = {};
 	}
 
 	std::vector<byte> GraphicsCapture::readTexture(ID3D11Texture2D* tex, int width, int height) {
@@ -158,9 +157,9 @@ namespace winrt::WinRTComponent::implementation {
 			auto s = src + (src_stride * i);
 			auto d = dst + (dst_stride * i);
 			for (int j = 0; j < width; ++j) {
-				d[0] = s[2];
+				d[0] = s[0];
 				d[1] = s[1];
-				d[2] = s[0];
+				d[2] = s[2];
 				d[3] = s[3];
 				s += 4;
 				d += 4;
@@ -169,15 +168,17 @@ namespace winrt::WinRTComponent::implementation {
 		return buf;
 	}
 
-	winrt::com_array<uint8_t> GraphicsCapture::GetActiveWindow(intptr_t hwnd) {
+	winrt::com_array<uint8_t> GraphicsCapture::GetActiveWindow(intptr_t hwnd, int& width, int& height) {
 
 		std::mutex mutex;
 		std::condition_variable cond;
 
 		std::vector<byte> buf;
 
-		m_callback = [&](ID3D11Texture2D* surface, int width, int height) {
-			buf = readTexture(surface, width, height);
+		m_callback = [&](ID3D11Texture2D* surface, int w, int h) {
+			buf = readTexture(surface, w, h);
+			width = w;
+			height = h;
 			cond.notify_one();
 		};
 

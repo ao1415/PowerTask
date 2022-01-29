@@ -50,7 +50,7 @@ namespace winrt::WinRTComponent::implementation
 		GraphicsCapture();
 		~GraphicsCapture();
 
-		winrt::com_array<byte> GetActiveWindow(intptr_t hwnd);
+		winrt::com_array<byte> GetActiveWindow(intptr_t hwnd,int& width, int& height);
 
 	};
 }
