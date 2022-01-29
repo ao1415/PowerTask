@@ -12,6 +12,7 @@ namespace WinCapt
         private string FileNameTemplate { get; init; } = Config.AppSettings["WinCaptFormat"];
 
         private readonly PathUtils _pathUtils;
+        private readonly GraphicsCapture _capture = new();
 
         public WinCapt()
         {
@@ -37,17 +38,11 @@ namespace WinCapt
         /// <param name="e"></param>
         private void WinCapt_KeyDown(object? sender, KeyEventArgs e)
         {
-            try
+            if (e.KeyData == (Keys.Control | Keys.Alt | Keys.PrintScreen))
             {
-                if (e.KeyData == (Keys.Control | Keys.Alt | Keys.PrintScreen))
-                {
-                    GraphicsCapture.SaveActiveWindow(_pathUtils);
-                }
-            }
-            catch (Exception ex)
-            {
-                Logger.Log.Error(ex, "");
+                _capture.SaveActiveWindow(_pathUtils);
             }
         }
+
     }
 }

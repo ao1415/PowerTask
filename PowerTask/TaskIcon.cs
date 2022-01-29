@@ -64,5 +64,6 @@ namespace PowerTask
         {
             ConfigToolStripMenuItem_Click(sender, e);
         }
+
     }
 }
