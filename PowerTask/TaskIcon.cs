@@ -32,7 +32,7 @@ namespace PowerTask
         {
             Logger.Log.Information("ログフォルダ表示");
 
-            _ = System.Diagnostics.Process.Start(BasicLogger.FolderPath);
+            _ = System.Diagnostics.Process.Start("explorer.exe", BasicLogger.OutputPath);
         }
 
         /// <summary>

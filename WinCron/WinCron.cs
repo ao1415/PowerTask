@@ -101,7 +101,7 @@ namespace WinCron
 
                 using (FileStream fs = new(Path.Combine(FolderPath, FileName), FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
                 {
-                    using TextReader reader = new StreamReader(fs);
+                    using TextReader reader = new StreamReader(fs, System.Text.Encoding.UTF8);
                     text = reader.ReadToEnd();
                 }
 

@@ -58,7 +58,7 @@ namespace WinCron
             }
             catch (Exception e)
             {
-                Logger.Log.Error("PowerShellの実行に失敗しました", e);
+                Logger.Log.Error(e, "PowerShellの実行に失敗しました");
                 return false;
             }
 

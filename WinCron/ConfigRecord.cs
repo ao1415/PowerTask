@@ -56,9 +56,9 @@ namespace WinCron
                 if (week.Contains(7))
                     week.Add(0);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                Logger.Log.Warning($"Timingの設定値に異常があります：[{name}]{record.Timing}");
+                Logger.Log.Warning(ex, $"Timingの設定値に異常があります：[{name}]{record.Timing}");
                 return null;
             }
 

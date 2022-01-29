@@ -8,10 +8,19 @@ namespace BasicLibrary.Logger
     public class BasicLogger
     {
         /// <summary>ログフォルダ</summary>
-        public static string FolderPath { get; } = @".\logs";
+        public static string FolderPath { get; } = @".\Logs";
 
         /// <summary>ログファイル</summary>
         public static string FileName { get; } = @"PowerTask.log";
+
+        /// <summary>ログ出力パス</summary>
+        public static string OutputPath
+        {
+            get
+            {
+                return Path.GetFullPath(FolderPath);
+            }
+        }
 
         /// <summary>
         /// 初期化
