@@ -44,6 +44,8 @@ namespace WinCapt
             // 1ピクセルだけ切り出し
             bmp.Clone(new Rectangle(1, 1, bmp.Width - 2, bmp.Height - 2), bmp.PixelFormat).Save(filePath);
             Logger.Log.Information($"画像を保存しました:{filePath}");
+
+            BasicLibrary.Toast.Toast.Show("画像を保存しました", new Uri(filePath));
         }
 
     }
