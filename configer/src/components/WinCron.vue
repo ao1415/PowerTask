@@ -45,7 +45,13 @@
           <button class="btn btn-primary" @click="onSaveClick()">保存</button>
         </div>
         <div class="col-md-auto">
-          <button class="btn btn-secondary">ダイアログ</button>
+          <button
+            class="btn btn-secondary"
+            data-bs-toggle="modal"
+            data-bs-target="#alartModal"
+          >
+            削除
+          </button>
         </div>
       </div>
       <div class="row g-3 mb-3">
@@ -111,6 +117,50 @@
             v-model="param"
             :readonly="!enable"
           />
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ダイアログ -->
+  <div
+    class="modal fade"
+    id="alartModal"
+    tabindex="-1"
+    aria-labelledby="alartModalLabel"
+    data-bs-backdrop="static"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="alartModalLabel">確認</h5>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="modal-body">
+          <p>削除してもよろしいですか？</p>
+        </div>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            data-bs-dismiss="modal"
+          >
+            キャンセル
+          </button>
+          <button
+            type="button"
+            class="btn btn-primary"
+            data-bs-dismiss="modal"
+            @click="onDeleteClick()"
+          >
+            削除
+          </button>
         </div>
       </div>
     </div>
@@ -229,8 +279,33 @@ export default defineComponent({
         console.error("ファイル書き込み失敗", error);
       }
     },
+    onDeleteClick() {
+      try {
+        const jsonData: ConfigJsonListType = [];
+        for (let i = 0; i < this.configList.length - 1; i++) {
+          if (!this.configList[i].active) {
+            jsonData.push({
+              Enable: this.configList[i].enable,
+              Name: this.configList[i].name,
+              Explain: this.configList[i].explain,
+              Timing: this.configList[i].timing,
+              Path: this.configList[i].path,
+              Param: this.configList[i].param,
+            });
+          }
+        }
+
+        const filePath = path.join(ExePath, ConfigFilePath);
+        fs.writeFileSync(filePath, JSON.stringify(jsonData, null, 2));
+
+        this.onLoadConfig();
+      } catch (error) {
+        console.error("ファイル書き込み失敗", error);
+      }
+    },
     onLoadConfig(): void {
       try {
+        console.debug(ExePath);
         const filePath = path.join(ExePath, ConfigFilePath);
         const text = fs.readFileSync(filePath, {
           encoding: "utf8",
