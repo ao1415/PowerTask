@@ -1,17 +1,22 @@
 module.exports = {
-	pluginOptions: {
-		electronBuilder: {
-			builderOptions: {
-				win: {
-					//icon: 'src/assets/icon.png',
-					target: [
-						{
-							target: 'portable',
-							arch: ['x64'],
-						},
-					],
-				},
-			}
+  pluginOptions: {
+    electronBuilder: {
+      nodeIntegration: true,
+      builderOptions: {
+        win: {
+          target: [
+            {
+              target: 'portable',
+              arch: [
+                'x64'
+              ]
+            }
+          ]
+        }
+      }
+    },
+    vuetify: {
+			// https://github.com/vuetifyjs/vuetify-loader/tree/next/packages/vuetify-loader
 		}
-	}
-}
+  },
+};

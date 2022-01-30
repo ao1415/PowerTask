@@ -42,7 +42,10 @@
           </div>
         </div>
         <div class="ms-auto col-md-auto">
-          <button class="btn btn-primary">保存</button>
+          <button class="btn btn-primary" @click="onSaveClick()">保存</button>
+        </div>
+        <div class="col-md-auto">
+          <button class="btn btn-secondary">ダイアログ</button>
         </div>
       </div>
       <div class="row g-3 mb-3">
@@ -131,14 +134,17 @@ type ConfigType = {
 type ConfigListType = ConfigType[];
 
 type ConfigJsonType = {
-  enable: boolean;
-  name: string;
-  explain: string;
-  timing: string;
-  path: string;
-  param: string;
+  Name: string;
+  Explain: string;
+  Timing: string;
+  Path: string;
+  Param: string;
+  Enable: boolean;
 };
 type ConfigJsonListType = ConfigJsonType[];
+
+const ConfigFilePath = "./../Config/WinCron.json";
+const ExePath = path.dirname(path.dirname(path.dirname(__dirname)));
 
 export default defineComponent({
   setup() {
@@ -189,13 +195,43 @@ export default defineComponent({
       this.param = this.configList[index].param;
     },
     onSaveClick() {
-      const filePath = path.resolve("./WinCron.json");
-      fs.writeFileSync(filePath, "test");
+      try {
+        const jsonData: ConfigJsonListType = [];
+        for (let i = 0; i < this.configList.length; i++) {
+          if (this.configList[i].active) {
+            jsonData.push({
+              Enable: this.enable,
+              Name: this.name,
+              Explain: this.explain,
+              Timing: this.timing,
+              Path: this.path,
+              Param: this.param,
+            });
+          } else {
+            if (i < this.configList.length - 1) {
+              jsonData.push({
+                Enable: this.configList[i].enable,
+                Name: this.configList[i].name,
+                Explain: this.configList[i].explain,
+                Timing: this.configList[i].timing,
+                Path: this.configList[i].path,
+                Param: this.configList[i].param,
+              });
+            }
+          }
+        }
+
+        const filePath = path.join(ExePath, ConfigFilePath);
+        fs.writeFileSync(filePath, JSON.stringify(jsonData, null, 2));
+
+        this.onLoadConfig();
+      } catch (error) {
+        console.error("ファイル書き込み失敗", error);
+      }
     },
     onLoadConfig(): void {
       try {
-        const filePath = path.resolve("/Config/WinCron.json");
-        console.debug(filePath);
+        const filePath = path.join(ExePath, ConfigFilePath);
         const text = fs.readFileSync(filePath, {
           encoding: "utf8",
         });
@@ -205,12 +241,12 @@ export default defineComponent({
 
         jsonData.forEach((element: ConfigJsonType) => {
           configData.push({
-            enable: element.enable,
-            name: element.name,
-            explain: element.explain,
-            timing: element.timing,
-            path: element.path,
-            param: element.param,
+            enable: element.Enable,
+            name: element.Name,
+            explain: element.Explain,
+            timing: element.Timing,
+            path: element.Path,
+            param: element.Param,
             active: false,
           });
         });
