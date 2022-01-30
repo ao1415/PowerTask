@@ -1,26 +1,23 @@
 <template>
-  <v-app>
-    <v-main>
-      <HelloWorld/>
-    </v-main>
-  </v-app>
+  <ConfigLayout />
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
-import HelloWorld from './components/HelloWorld.vue'
+import { defineComponent } from "vue";
+import ConfigLayout from "./components/ConfigLayout.vue";
 
 export default defineComponent({
-  name: 'App',
-
+  name: "App",
   components: {
-    HelloWorld,
+    ConfigLayout,
   },
-
-  data () {
-    return {
-      //
-    }
-  },
-})
+});
 </script>
+
+<style>
+html,
+body,
+#app {
+  height: 100%;
+}
+</style>
