@@ -6,17 +6,12 @@ module.exports = {
         win: {
           target: [
             {
-              target: 'portable',
-              arch: [
-                'x64'
-              ]
-            }
-          ]
-        }
-      }
+              target: "portable",
+              arch: ["x64"],
+            },
+          ],
+        },
+      },
     },
-    vuetify: {
-			// https://github.com/vuetifyjs/vuetify-loader/tree/next/packages/vuetify-loader
-		}
   },
 };
